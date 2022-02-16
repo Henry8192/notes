@@ -283,3 +283,63 @@ int main()
     return 0;
 }
 ```
+---
+## 20220216 Dynamic Memory Allocation
+
+```c
+void swap(int marks[], int i, int j)
+{
+    int tmep = marks[i];    // temp = *(marks+i);
+    marks[i] = marks[j];    // *(marks+i) = *(marks+j);
+    marks[j] = temp;        // *(marks+j) = temp;
+}
+int main()
+{
+    int marks[] = {1, 2, 3, 4, 5};
+    swap(marks, 1, 2);
+}
+```
+
+### Dynamic Memory Allocation
+```c
+int marks[500];
+int size = 10;
+scanf("%d", &size);
+int marks[size];    // syntactic sugar, D99 stnadard
+```
+
+|                MAX                |
+| :-------------------------------: |
+|        Call Stack Shrink ⬇️        |
+|           ............            |
+| Heap (majority of memory) Grows ⬆️ |
+|     Global Vars + Constraints     |
+|               Code                |
+
+### Malloc
+```c
+#include <stdlib.h>
+void *malloc(type_size * size);
+// (type) *marks = (cast_type*) malloc(size * sizeof(int));
+int* marks = (int*) malloc(size*sizeof(int));
+*(marks + i) = 100;
+```
+
+#### Memory Leak Problem: Remember to Release Memory!
+>"If you have a memory leak problem, just try to turn the computer off and on again." –––– Tech support
+
+Nah you don't. Try ```free(marks)```!
+
+```c
+int* read(int *marks, int size)
+{
+    int* marks = (int*) malloc(...);
+    // xxx
+    return marks;
+}
+read(marks, size);
+```
+
+### Garbage Collection
+#### Java VS C++
+![Garbage Collection Meme](https://i.redd.it/8enervg2wjo51.jpg)
