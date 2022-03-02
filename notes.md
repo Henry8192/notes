@@ -284,7 +284,7 @@ int main()
 }
 ```
 ---
-## 20220216 Dynamic Memory Allocation
+## 2022/02/16 Dynamic Memory Allocation
 
 ```c
 void swap(int marks[], int i, int j)
@@ -343,3 +343,108 @@ read(marks, size);
 ### Garbage Collection
 #### Java VS C++
 ![Garbage Collection Meme](https://i.redd.it/8enervg2wjo51.jpg)
+
+## 2022/02/18 Midterm Prep
+Exam time: 100 minutes
+#### 5 short questions:
+- One line coding question
+- Error-finding: compile-time error
+- Output
+- Evaluating Expressions
+
+#### 6 long answer questions:
+- Easy (aim for full marks)
+- Challenging (1~2)
+
+digit (0~9)
+Number (any length)
+prompt user to enter valid input
+
+## Lecture 19 2022/02/28
+***Written by Wen***
+### 2D Arrays
+#### Declaring
+```c
+const int numRows = 2;
+const int numCols = 3;
+
+int marks[numRows][numCols];
+
+// declare when initializing
+int marks[2][3] = {
+    {100, 90, 80};
+    {90, 80, 70}
+};
+
+// declare with for loop
+for (int i = 0; i < 2; i++) {
+    for (int j = 0; j < 3; j++) {
+        marks[i][j] = 0; // row and column would be better variable names
+    }
+}
+```
+#### Call Stack
+    marks
+    ([1][2]
+     [1][1]
+     [1][0]
+     [0][2] // + 8
+     [0][1] // + 4 // int is 4 bytes
+     [0][0] // this is the location of the address of marks)
+     main()
+
+---
+
+>Address of marks[i][j] = Address of marks[0][0] + sizeof(int)*(i*numCols + j);
+
+```c
+int sum(int marks[][3], int numRows, int numCols) { // include the "3" for the second array is important
+    for () {
+        for () {
+            sum += marks[i][j]; // syntatic sugar for *(*(marks+i)+j)
+        }
+    }
+}
+
+int main(void) {
+    int marks[2][3];
+    printf("%d\n", sum(marks, 2, 3));
+}
+```
+
+`*marks == *&marks[0]`
+For 2D arrays, we can also dereference marks[0]: 
+`*marks[0] == *&marks[0][0]`
+
+## 20220302 2D Arrays Continued
+
+```c
+int marks[2][3];
+sum(marks, 2, 3);
+int sum(int marks[][3], int rows, int cols)
+marks === marks[0];
+*marks === *&marks[0]; // both are addresses
+```
+
+| row |
+| --- |
+| int* |
+| int* |
+| int* |
+
+first row:
+| int | int | int | int |
+| --- | --- | --- | --- |
+
+```c
+int **marks = (int**) malloc(rows * sizeof(int*));
+for (int i = 0; i < rows; i++) {
+    marks[i] = (int*) malloc(cols * sizeof(int));
+    // marks[i] == *(marks + i)
+}
+
+for (int i = 0; i < rows; i++) {
+    free(marks[i]);
+}
+free(marks);
+```
