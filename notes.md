@@ -313,7 +313,7 @@ int marks[size];    // syntactic sugar, D99 stnadard
 |        Call Stack Shrink ⬇️        |
 |           ............            |
 | Heap (majority of memory) Grows ⬆️ |
-|     Global Vars + Constraints     |
+|      Global Vars + Constants      |
 |               Code                |
 
 ### Malloc
@@ -426,8 +426,8 @@ marks === marks[0];
 *marks === *&marks[0]; // both are addresses
 ```
 
-| row |
-| --- |
+| row  |
+| ---- |
 | int* |
 | int* |
 | int* |
@@ -448,3 +448,30 @@ for (int i = 0; i < rows; i++) {
 }
 free(marks);
 ```
+
+## 20220304 Strings
+### string cells
+ | 'H' | 'E' | 'L' | 'L' | 'O' | '\0' |
+ | --- | --- | --- | --- | --- | ---- |
+
+### Declaration & Playing Around
+```c
+char s[] = {'h', 'i', '\0'};
+
+char s[] = "Hello";
+char *t = "Hello";
+t = "hello";
+char *t = (char*) malloc(6 * sizeof(char));
+char *temp = t;
+t = "the quick brown fox jumps over a lazy dog";
+free(temp);
+```
+|                 MAX                 |
+| :---------------------------------: |
+|         Call Stack Shrink ⬇️         |
+|            ............             |
+|  Heap (majority of memory) Grows ⬆️  |
+|       Global Vars + Constants       |
+| Including Strings, which is a const |
+|                Code                 |
+
