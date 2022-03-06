@@ -244,7 +244,7 @@ int marks[6];
 marks = 7;  // Wrong! marks is the pointer pointing to the first variable of marks[6];
 *marks = 7; // Correct! It is equivilent to marks[0] = 7;
 ```
-
+***
 ## 2022/02/14 Array Continued
 ```c
 int marks[] = {1, 2, 3, 4, 5};
@@ -252,7 +252,7 @@ int marks[] = {1, 2, 3, 4, 5};
 marks = &x; //wrong!
 ```
 
-## Example
+### Example
 ```c
 void read(int marks[])
 {
@@ -283,7 +283,7 @@ int main()
     return 0;
 }
 ```
----
+***
 ## 2022/02/16 Dynamic Memory Allocation
 
 ```c
@@ -344,6 +344,7 @@ read(marks, size);
 #### Java VS C++
 ![Garbage Collection Meme](https://i.redd.it/8enervg2wjo51.jpg)
 
+***
 ## 2022/02/18 Midterm Prep
 Exam time: 100 minutes
 #### 5 short questions:
@@ -359,9 +360,10 @@ Exam time: 100 minutes
 digit (0~9)
 Number (any length)
 prompt user to enter valid input
+***
 
-## Lecture 19 2022/02/28
-***Written by Wen***
+## 2022/02/28 Lecture 19
+***Written by Wen*** [check out his GitHub Profile](https://github.com/WenOu9)
 ### 2D Arrays
 #### Declaring
 ```c
@@ -415,8 +417,9 @@ int main(void) {
 `*marks == *&marks[0]`
 For 2D arrays, we can also dereference marks[0]: 
 `*marks[0] == *&marks[0][0]`
+***
 
-## 20220302 2D Arrays Continued
+## 2022/03/02 2D Arrays Continued
 
 ```c
 int marks[2][3];
@@ -449,7 +452,7 @@ for (int i = 0; i < rows; i++) {
 free(marks);
 ```
 
-## 20220304 Strings
+## 2022/03/04 Strings
 ### string cells
  | 'H' | 'E' | 'L' | 'L' | 'O' | '\0' |
  | --- | --- | --- | --- | --- | ---- |
