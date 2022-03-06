@@ -1,5 +1,6 @@
 # Henry's programming notes repo
-## including:
+[Website checkout](https://henry8192.github.io/notes/)
+## Notes Content
 - U of T
   - APS105
 - MIT
