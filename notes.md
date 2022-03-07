@@ -386,26 +386,29 @@ for (int i = 0; i < 2; i++) {
 }
 ```
 #### Call Stack
-    marks
-    ([1][2]
-     [1][1]
-     [1][0]
-     [0][2] // + 8
-     [0][1] // + 4 // int is 4 bytes
-     [0][0] // this is the location of the address of marks)
-     main()
-
----
-
->Address of marks[i][j] = Address of marks[0][0] + sizeof(int)*(i*numCols + j);
+#####marks
+i | j | // comments
+--- | --- | :---:
+1|2|...
+1|1|...
+1|0|+12
+0|2|+8
+0|1|marks+4 (int is 4 bytes)
+0|0|address of marks
+|-|-|main()
 
 ```c
-int sum(int marks[][3], int numRows, int numCols) { // include the "3" for the second array is important
+// &marks[i][j] = &marks[0][0] + sizeof(int) * (i * numCols + j);
+
+int sum(int marks[][3], int numRows, int numCols) {
+    // include the "3" for the second array is important
     for () {
         for () {
-            sum += marks[i][j]; // syntatic sugar for *(*(marks+i)+j)
+            sum += marks[i][j]; 
+            // syntatic sugar for *(*(marks+i)+j)
         }
     }
+    return sum;
 }
 
 int main(void) {
@@ -453,7 +456,7 @@ free(marks);
 ```
 ***
 
-## 2022/03/04 Strings
+## 2022/03/04 String
 ### string cells
  | 'H' | 'E' | 'L' | 'L' | 'O' | '\0' |
  | --- | --- | --- | --- | --- | ---- |
@@ -479,3 +482,80 @@ free(temp);
 | Including Strings, which is a const |
 |                Code                 |
 
+***
+## 2022/03/07 String Continued
+```c
+int countBlanks(const char *s)
+{
+    // code
+}
+int main()
+{
+    // changable address, const char
+    const char *s; // equivalent to char const *s;
+    s = malloc(5);
+    s[0] = 'H'; // compile time error
+
+    // changable char, const address
+    char* const s;
+
+    // both fixed
+    const char* const s;
+}
+```
+### String I/O
+```c
+char *s = "Hello World!";
+
+// output
+printf("%s", s);
+printf("%.5s", s); // print first 5 characters
+puts(s); // append a '\n' character;
+
+// input
+scanf("%s", s);
+// skips leading white spaces, till next white space
+char *s = (char*) malloc(6);
+char s[6]; // buffer overflow
+
+// reads till arrives at '\0'. still unsafe, doesn't know the length of the input either
+gets(s);
+
+// use sizeof(s) if s is static;
+fgets(s, num_of_chars_including_\0, stdin);
+```
+### Create Our Own Input Func!
+```c
+char *getStringFromInputSafely(char *s, int size)
+{
+    int i = 0;
+
+    // returns character user enters
+    char c = getchar();
+    while (i < size - 1 && c != '\n')
+    {
+        s[i++] = c;
+        c = getchar();
+    }
+    /* or
+    char c;
+    while (i < size - 1 && (c = getchar()) != '\n')
+    {
+        s[i++] = c;
+    }
+    */
+    s[i] = '\0';
+    return s;
+}
+int main()
+{
+    char s[6];
+    // char *s = malloc(6*sizeof(char));
+
+    // question: how can we allocate memory dynamically 
+    // if we don't know how many characters we have?
+
+    printf("%s", getStringFromInputSafely(s, 6));
+
+}
+```
