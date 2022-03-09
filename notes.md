@@ -387,15 +387,15 @@ for (int i = 0; i < 2; i++) {
 ```
 #### Call Stack
 #####marks
-i | j | // comments
---- | --- | :---:
-1|2|...
-1|1|...
-1|0|+12
-0|2|+8
-0|1|marks+4 (int is 4 bytes)
-0|0|address of marks
-|-|-|main()
+| i   | j   |       // comments        |
+| --- | --- | :----------------------: |
+| 1   | 2   |           ...            |
+| 1   | 1   |           ...            |
+| 1   | 0   |           +12            |
+| 0   | 2   |            +8            |
+| 0   | 1   | marks+4 (int is 4 bytes) |
+| 0   | 0   |     address of marks     |
+| -   | -   |          main()          |
 
 ```c
 // &marks[i][j] = &marks[0][0] + sizeof(int) * (i * numCols + j);
@@ -558,4 +558,193 @@ int main()
     printf("%s", getStringFromInputSafely(s, 6));
 
 }
+```
+
+***
+## 2022/03/08 Plenary Lecture
+### Arrays
+> ### stack & Heaps
+> - stack: where our local variables are stored
+> - heap: where dynamic memory is accessed
+
+### 2019 Final Q9
+> Question 9 [8 Marks]
+Write a function,countLetters, that counts the number occurrences of each alphabetical letter found in a string. The function has two parameters: a string (i.e., char *) and an array of integers.
+The string should not be modified and can be any length. You may assume that the string is null- terminated and all letters are lower case. The string may contain characters that are not part of the alphabet (e.g., 0, 1, !, &, etc). The integer array has a size of 26, one for each letter in the alphabet. The first index corresponds to the letter 'a',thesecond index to the letter 'b', and so on. You may assume that, initially, all 26 elements in the array have a value of zero.
+You must abide by the following constraints. Failure to meet a constraint will result in a grade of zero for this question.
+> 1. You cannot modify the characters inside the string.
+> 2. You cannot create any other data structures (e.g., array, linked list, etc).
+> 3. Your function must only access valid indices of the array.
+> 4. You cannot call any functions in your implementation.
+> 
+> An example of one run of the program is below. You only need to implement the countLetters function. Assume a main function (that reads in a string, calls your function, and outputs the integer array) already exists.
+> Enter a sentence: hello, world
+The frequency that each lower case letter appears is:
+d: 1
+e: 1 
+h: 1 
+l: 3
+o:2 
+r: 1 
+w: 1
+### Solution
+```c
+#include <stdio.h>
+#define MAX_STRING_LENGTH 80
+#define ALPHABET_LENGTH 26
+void countLetters(char *s, int count[]) {
+    while (*s != '\0') {
+        int index = *s - 'a';
+        if (index >= 0 && index < 26) {
+            count[index]++;
+        }
+        s++;
+    }
+}
+int main() {
+    char str[MAX_STRING_LENGTH];
+    int count[30] = {0};
+    printf("Enter your letters: ");
+    fgets(str, MAX_STRING_LENGTH, stdin);
+    countLetters(str, count);
+
+    printf("Frequency each letter occurs is: \n");
+
+    for (int j = 0; j < ALPHABET_LENGTH; j++) {
+        if (count[j] > 0)
+            printf("%c: %d\n", j+'a', count[j]);
+    }
+    return 0;
+}
+```
+
+### 2018 Final Q15
+>Write a C function called sortOddEvenO that rearranges the order of the elements in an integer array such that all odd numbers are to the left of all even numbers. The function has two parame- ters: a pointer to the integer array and an integer specifying the number of elements in the array. The odd numbers can be in any order, as long as they are all to the left of any even number, and the even numbers can be in any order, as long as they are all to the right of any odd number.
+For example, if the elements of the array initially are: `1 4 6 5 9 3 8 2`
+then after sortOddEvenO processes the array, the elements may become: `1 3 9 5 6 4 8 2`
+Note: In your solution, you may not declare or. use another array.
+### Solution
+```c
+#include <stdio.h>
+void sortOddEven(int input[], int size) {
+    int left = 0, right = size - 1;
+    while (left < right) {
+        while (left < right && input[left] % 2 == 1)
+            left++;
+        while (left < right && input[right] % 2 == 0)
+            right--;
+        // swap(&input[left], &input[right]);
+        int temp = input[left];
+        input[left] = input[right];
+        input[right] = temp;
+    }
+
+}
+int main() {
+    int a[] = {1, 2, 5, 4, 6};
+    int n = sizeof(a) / sizeof(int);
+    sortOddEven(a, n);
+    for (int i = 0; i < n; i++)
+        printf("%d ", a[i]);
+    return 0;
+}
+```
+
+### 2020 Final Q5
+>An integer with the type unsigned int has 32 bits, and stores values from 0 to $2^{32-1}$. Write a function unsigned int generateInt(int list[], int size), that takes a list of distinct integers valued from 0 to 31 as its first parameter, and the size of such a list as its second parameter, and returns an integer with the corresponding bits set as 1.
+For example, if the input list is the array `[0, 3, 4, 9]` with a size of 4, the function will return `1000011001` in binary (base-2) form, as bit 0, bit 3, bit 4, and bit 9 (counting from the least significant bit on the right) are set to 1. The following main() function will print result = 219 as the result `1000011001` is printed in hexadecimal form by using the format specifier `%x`:
+```c
+// To be continued
+```
+
+***
+ ## 2022/03/09
+```c
+char *s = "sample";
+printf("%s", s);
+
+// print substring from s[0] to s[2]
+printf("%s", s + 2);
+
+// print s[0] + 2
+printf("%c", *s + 2);
+```
+
+### Strlen: return length of the string
+```c
+#include <string.h>
+unsigned int strlen(const char *s);
+printf("%u", strlen(s));
+```
+
+### Implement our own stringLength!
+```c
+int stringLength(const char *s)
+{
+    int i = 0;
+    // s[i] hits '\0' and jumps out of the loop
+    // since '\0' == unsigned int 0
+    while (s[i]) i++;
+    return i;
+}
+```
+| Stack | relative address |
+| :---: | :--------------: |
+| '\0'  |     6 <-- t      |
+|  'e'  |        5         |
+|  'l'  |        4         |
+|  'p'  |        3         |
+|  'm'  |        2         |
+|  'a'  |        1         |
+|  's'  |     0 <-- s      |
+```c
+// pointer arithmetic ver.
+int stringLength(const char *s)
+{
+    const char *t = s;
+    while (*t) t++;
+    return t - s;
+}
+
+// dynamic memory ver.
+int stringLength(const char *s)
+{
+    char *s = malloc(6*sizeof(char));
+    // check if memory allocation is successful
+    if (s != NULL)
+    {
+        // do the work
+    }
+}
+```
+### strcpy
+```c
+// definition
+char *strcpy(char *dest, const char *src)
+{
+    int i = 0;
+    while (src[i]) dest[i] = src[i++];
+    
+    // add '\0' to the end of the string
+    dest[i] = '\0';
+    return dest;
+}
+
+// pointer arithmetic ver.
+char *strcpy(char *dest, const char *src)
+{
+    char *t = dest;
+    /*
+    while (*dest) *dest++ = src++;
+    *dest = '\0';
+    */
+
+    while ((*dest = *src) != '\0)
+        dest++, src++;
+    
+    // nerd ver., don't use!
+    // while (*dest++ = *src++)
+    return t;
+}
+
 ```
