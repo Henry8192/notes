@@ -4,5 +4,5 @@
 - U of T
   - APS105 Computer Fundamentals
 - MIT
-  - 6.006 Introduction to Algorithm
+  - 6.006 Introduction to Algorithms
   - The missing semester
