@@ -4,5 +4,5 @@
 - U of T
   - APS105
 - MIT
-  - 6.006
+  - 6.006 Introductim to Algorithm
   - The missing semester
