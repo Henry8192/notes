@@ -2,7 +2,7 @@
 [Website checkout](https://henry8192.github.io/notes/)
 ## Notes Content
 - U of T
-  - APS105
+  - APS105 Computer Fundamentals
 - MIT
-  - 6.006 Introductim to Algorithm
+  - 6.006 Introduction to Algorithm
   - The missing semester
