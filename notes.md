@@ -748,3 +748,94 @@ char *strcpy(char *dest, const char *src)
 }
 
 ```
+## 2022/03/11 String Functions
+### strcpy vs. strncpy
+```c
+// not safe!
+// char *strcpy(char *dest, const char *src);
+
+// safe
+// char *strncpy(char *dest, const char *src, size_t n);
+
+int main()
+{
+    char s[6];
+    // copy the '\0' character here
+    strncpy(s, "Hello", 6);
+    return 0;
+}
+```
+```c
+int main()
+{
+    char s[] = "Hello World";
+    // does not copy the '\0' character
+    strncpy(s, "Hello", 5);
+    return 0;
+}
+```
+### Design Our Own String Copy Function!
+```c
+char *stringSafeCopy(char *dest, const char *src, int n)
+{
+    for (int i = 0; i < n && (dest[i] = src[i]) != '\0'; i++)
+    {;}
+    return dest;
+}
+```
+### strcat vs. strncat
+```c
+// char *strcat(char *dest, const char *src);
+int main()
+{
+    char s1[13] = "Hello";
+    char *t = "World!";
+
+    // would print "HelloWorld!"
+    puts(strcat(s1, t));
+
+    // the string is "HelloWorld\0"
+    puts(strncat(s1, t, 6));
+    return 0;
+}
+```
+### strcmp vs. strncmp
+```c
+// int strcmp(const char *p, const char *q);
+int main()
+{
+    // strcmp("abc", "bcd") < 0
+    // strcmp("sam", "same") < 0
+    // strcmp("114514", "114514") == 0
+    // strncmp("sam", "same", 3) == 0
+}
+```
+## Convert string to numbers: atoi vs. atof
+```c
+// int atoi(const char *s);
+int main()
+{
+    printf("%d", atoi("314"));
+    printf("%.2lf", atof("3.14"));
+}
+```
+### strchr
+```c
+// return the first occurrence of char c in string s
+// strchr(const char *s, char c);
+char *s = "Hello";
+char *p = strchr(s, 'e');
+printf("%s\n%d", p, p-s);
+
+// print out all of the occurrences
+p = s;
+while (p != NULL)
+{
+    p = strchr(p+1, 'e');
+}
+```
+### strstr
+```c
+// char *strstr(const char *s1, const char *s2);
+// returns an address to first occurrence of s2 in s1
+```
