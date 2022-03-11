@@ -99,3 +99,17 @@ Check man signal for more info
   - Windows
   - Panes
 
+# Git
+## Remove committed files
+`git rm --cached`
+With `git rm --cached` you stage a file for removal, but you don't remove it from the working dir. The file will then be shown as untracked.
+
+`git reset HEAD <file>`
+With `git reset <file>` you can unstage a file. In the example above you might want to use git reset test to unstage the removal.
+
+	git reset test
+	git status
+	On branch master
+	nothing to commit, working directory clean
+
+git reset can be used to go back on the tree, for instance if you want to go two commits back you can do `git reset HEAD~2`
