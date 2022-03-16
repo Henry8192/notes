@@ -834,8 +834,73 @@ while (p != NULL)
     p = strchr(p+1, 'e');
 }
 ```
+
+## 2022/03/14 String Continued
 ### strstr
 ```c
 // char *strstr(const char *s1, const char *s2);
 // returns an address to first occurrence of s2 in s1
+char *s1 = "Hello again, my name is...", *s2 = "again";
+strstr(s1, s2);
 ```
+### self Implementation
+```c
+// use strncmp!
+char *strstr(const char *s1, const char *s2)
+{
+    char *p = s1;
+    int n1 = strlen(s1), n2 = strlen(s2);
+    while (*p != '\0' && strncmp(p, s2, n2) && n-(p-s1) >= n2)
+    {
+        p++;
+    }
+    if (*p == '\0') return NULL;
+    return p;
+}
+```
+### Array of Strings
+```c
+// not commonly used
+// we can write into  this character array
+char months[][10] = {"January", "February", /* ... */ "September", /* ... */ "December"};
+
+// Alternative version
+char *months[12];
+months[0] = "January"; // note that we cannot write into it
+```
+### Command-line Parameters
+```c
+// argc stands for argument count
+// argv stands for argument vector
+int main(int argc, char *argv[])
+{
+    if (argc != 3)
+    {
+        printf("Usage: ls .....\n");
+        // this terminates the whole program
+        exit(0);
+
+        // this only terminates the function
+        return 0;
+
+        // for more information about the difference between return 0 and exit(0) check out the link below
+    }
+}
+```
+[Difference Between return 0 and exit(0)](https://stackoverflow.com/questions/3463551/what-is-the-difference-between-exit-and-return)
+
+```c
+int main(int argc, char *argv[])
+{
+    for (int i = 0; i < argc; i++)
+    {
+        printf("%s ", argv[i]);
+        // wrong version
+        // printf("%s ", *argv+i);
+    }
+    return 0;
+}
+```
+
+
+
