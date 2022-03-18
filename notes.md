@@ -901,6 +901,84 @@ int main(int argc, char *argv[])
     return 0;
 }
 ```
+## Conversation With Leo
+Use `macro`
+[#if, #elif, #else, and #endif directives ](https://docs.microsoft.com/en-us/cpp/preprocessor/hash-if-hash-elif-hash-else-and-hash-endif-directives-c-cpp?view=msvc-170)
+```c
+#if condition
+// code
+#elif condition
+// code
+#else
+// code
+#endif
 
+// condition must be satisfied
+assert(/* condition */);
+```
 
-
+## 2022/03/16 Recursion
+### Cutting the cake
+```c
+cutCake(chunk)
+{
+    // base case
+    if (chunk < loog)
+        return;
+    else {
+        // cut into two halves
+        cutCake(chunk/2);
+    }
+}
+```
+### Example 1
+f(n) = {
+    2 * f(n-1) + 1, n > 0
+    3, n = 0
+}
+```c
+int f(int n)
+{
+    if (n == 0) return 3;
+    return 2 * f(n-1) + 1;
+}
+```
+### factorial
+```c
+int factorial(int n)
+{
+    if (n < 0)
+    {
+        printf("you fucked up");
+        return 114514;
+    }
+    else if (n == 0 || n == 1) return 1;
+    else return n * f(n-1);
+}
+```
+### printRow
+```c
+void printRow(int n)
+{
+    if (n <= 0)
+    {
+        printf("\n");
+        return;
+    }
+    else
+    {
+        printf("*");
+        printRow(n-1);
+    }
+}
+```
+### printTriangle
+```c
+void printTriangle(int n)
+{
+    if (n > 0) {
+        printTriangle(n-1);
+        printRow(n);
+    }
+}
+```
