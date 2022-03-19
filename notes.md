@@ -918,6 +918,7 @@ assert(/* condition */);
 ```
 
 ## 2022/03/16 Recursion
+![Recursion Meme](https://preview.redd.it/0wap3cp4khm01.jpg?width=960&crop=smart&auto=webp&s=a601188a147154b9d284ad9bcb279c6f56209614)
 ### Cutting the cake
 ```c
 cutCake(chunk)
@@ -977,8 +978,47 @@ void printRow(int n)
 void printTriangle(int n)
 {
     if (n > 0) {
+        // swap the two rows if print a reversed triangle
         printTriangle(n-1);
         printRow(n);
     }
 }
 ```
+## 2022/03/18 Recersion Continued
+### Example: Print Pattern
+    ****
+    ***
+    **
+    *
+    **
+    ***
+    ****
+
+```c
+void printPattern(int n)
+{
+    if (n == 1) printRow(1);
+    else {
+        printRow(n);
+        printRow(n-1);
+        printRow(n);
+    }
+}
+```
+### Example: Power
+```c
+double power(double x, int n)
+{
+    if (n < 0) return 1 / power(x, -n);
+
+    if (n == 0 && x != 0) return 0;
+    else return -1;
+    
+    if (n == 1) return x;
+    else {
+        if (n % 2 == 0)
+            return power(x, n/2);
+        else
+            return power(x, 1) * power(x, n/2);
+    }
+}
