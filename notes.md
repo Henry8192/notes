@@ -1022,3 +1022,66 @@ double power(double x, int n)
             return power(x, 1) * power(x, n/2);
     }
 }
+```
+## 2022/03/21 Recursion Continued & Structures
+### Strings with Recursion
+```c
+bool isPalindromeHelper(char *s, int low, int high);
+bool isPalindrome(char *s)
+{
+    /* base cases: 
+        isPalindrome("x") == true;
+        isPalindrome("") == true;
+    */
+    // prof want to use pointers, so we have to (really?)
+    // pass in two additional parameters into func
+    // try global variables
+    // (actually don't, cuz could cause additional problems to other funcs)
+
+    return PalindromeHelper(s, 0, strlen(s) - 1);
+}
+bool isPalindromeHelper(char *s, int low, int high)
+{
+    if (low >= high) return true;
+    if (s[low] != s[high]) return false;
+    return isPalindromeHelper(s, low + 1, high - 1);
+}
+```
+### Structures
+| Structure | Type   |
+| --------- | ------ |
+| sku       | int    |
+| quantity  | int    |
+| size      | char   |
+| price     | double |
+
+```c
+struct entry {
+    int sku, quantity;
+    char size;
+    couble price;
+} item;
+struct entry item2;
+```
+### Typedef
+```c
+typedef struct entry Entry;
+Entry item3;
+
+// c legacy codes
+typedef unsigned int size_t;
+typedef int* IntPointer;
+
+typedef struct date {
+    int year, month, day;
+} Date;
+const Date confederation = {1867, 7, 1};
+
+Date *p = &confederation;
+// dot syntax
+confederation.year = 1867;
+p->month = 7;
+
+// malloc
+p = (Date*) malloc(sizeof(Sate));
+```
