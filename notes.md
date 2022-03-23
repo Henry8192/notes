@@ -1080,8 +1080,37 @@ const Date confederation = {1867, 7, 1};
 Date *p = &confederation;
 // dot syntax
 confederation.year = 1867;
-p->month = 7;
+p->month = 7;   // equivalent to (*p).month = 7;
 
 // malloc
 p = (Date*) malloc(sizeof(Sate));
+free(p);
+```
+
+# 2022/03/23 Linear Lists
+Linear lists is an Abstract data type (ADT)
+
+![Always has been](https://preview.redd.it/oxoudjscrro81.jpg?width=960&crop=smart&auto=webp&s=6d7360b9f7fa8e5a3aacd6c1886338ff3ff37f6b)
+### Interface
+A collection of functions. (The following is a java example)
+![A little bit away from java:](https://media.geeksforgeeks.org/wp-content/uploads/20200624222851/List-and-ArrayList-in-Java.png)
+
+methods:
+>create a new empty list;
+insert into the list (beginning, middle, end)
+search
+deleteAll
+print
+
+### Linked List
+![Linear List Example](https://cdn.programiz.com/sites/tutorial2program/files/linked-list-concept.png)
+
+#### Implementation
+```c
+// made possible by multi-pass compilers
+typedef struct node
+{
+    int data;
+    struct node *next;
+} List;
 ```
