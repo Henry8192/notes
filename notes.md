@@ -1111,6 +1111,84 @@ print
 typedef struct node
 {
     int data;
+    // Linked list defines itself recursively
     struct node *next;
 } List;
 ```
+
+## 2022/03/25 Linked List Continued
+### Initialization
+```c
+// Recall the definition of a linked list above
+
+// Initialize an empty linked list
+Node head = NULL;
+
+// Only allocate memories, remember to free them up!
+Node *createNode(int data)
+{
+    Node *newNode = malloc(sizeof(Node));
+    
+    // check if malloc is successful!
+    // this is a guard condition
+    if (newNode == NULL) return NULL;
+
+
+    newNode->data = data;
+    newNode->next = NULL;
+    return newNode;
+}
+
+head = createNode(1);
+head->next = createNode(2);
+head->next->next = createNode(114514);
+// Stop it! Get some help!
+// Use recursion or iteration! Or...
+// You wanna insert at the head!
+```
+[Guard condition explained](https://codewithchris.com/swift-guard/)
+### Implement API Insert At Front
+#### Wrong Example! Don't Use!
+```c
+bool insertAtFront(Node *head, int data)
+{
+    Node *newNode = createNode(Node);
+    if (newNode == NULL) return false;
+    newNode->next = head;
+    head = newNode;
+    return true;
+}
+Node *head = NULL;
+printf("%d", insertAtFront(head, 1));
+// head doesn't change since only pass by value
+```
+#### Fixed version 1
+```c
+bool insertAtFront(Node **headPointer, int data)
+{
+    Node *newNode = createNode(Node);
+    if (newNode == NULL) return false;
+    newNode->next = *headPointer;
+    *headPointer = newNode;
+    return true;
+}
+Node *head = NULL;
+printf("%d", insertAtFront(&head, 1));
+```
+#### Beautiful Code Version
+```c
+struct linkedList
+{
+    Node *head;
+} LinkedList;
+
+bool insertAtFront(LinkedList *list, int data)
+{
+    Node *newNode = createNode(Node);
+    if (newNode == NULL) return false;
+    newNode->next = list->head;
+    list->head = newNode;
+    return true;
+}
+Node *head = NULL;
+printf("%d", insertAtFront(&list, 1));
