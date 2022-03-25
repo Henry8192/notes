@@ -1181,7 +1181,7 @@ struct linkedList
 {
     Node *head;
 } LinkedList;
-
+// Instead of using "Head", use LinkedList's head
 bool insertAtFront(LinkedList *list, int data)
 {
     Node *newNode = createNode(Node);
@@ -1192,3 +1192,4 @@ bool insertAtFront(LinkedList *list, int data)
 }
 Node *head = NULL;
 printf("%d", insertAtFront(&list, 1));
+```
