@@ -1177,7 +1177,7 @@ printf("%d", insertAtFront(&head, 1));
 ```
 #### Beautiful Code Version
 ```c
-struct linkedList
+typedef struct linkedList
 {
     Node *head;
 } LinkedList;
@@ -1190,6 +1190,60 @@ bool insertAtFront(LinkedList *list, int data)
     list->head = newNode;
     return true;
 }
-Node *head = NULL;
-printf("%d", insertAtFront(&list, 1));
+int main()
+{
+    Node *head = NULL;
+    LinkedList *list = (LinkedList*) malloc(sizeof(LinkedList));
+    printf("%d", insertAtFront(&list, 1));
+}
 ```
+## 2022/03/28 Linked List Continued
+### Self-defined linked list
+#### Initialization of a List
+```c
+void initList(LinkedList *list)
+{
+    list->head = NULL;
+}
+```
+#### Other Methods of a LinkedList
+```c
+bool isEmpty(LinkedList *list)
+{
+    return list->head == NULL;
+}
+void printList(LinkedList *list)
+{
+    Node *current = list->head;
+    while(current != NULL)
+    {
+        printf("%d ", current->data);
+        current = current->next;
+    }
+}
+node *findFirstNode(LinkedList *list, int data)
+{
+    node *current = list->head;
+    while (current != NULL)
+    {
+        if(current->data == data) {
+            return current;
+        }
+        current = current->next;
+    }
+    return NULL;
+}
+bool insertAtBack(LinkedList *list, int data)
+{
+    node *current = list->data;
+    if(!isEmpty(list)) {
+        list->head = createNode(data);
+        return list->head != NULL;
+    }
+    while (current->next != NULL)
+    {
+        current = current->next;
+    }
+    current->next = createNode(data);
+    return current->next != NULL;
+}
