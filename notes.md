@@ -1247,3 +1247,66 @@ bool insertAtBack(LinkedList *list, int data)
     current->next = createNode(data);
     return current->next != NULL;
 }
+```
+## 2022/03/30 Linked List Continued
+### Insertion
+```c
+bool insertIntoOrderedList(LinkedList *list, int data)
+{
+    if (isEmpty(list) || current->data > data) {
+        insertAtFront(list, data);
+    }
+    Node *next = current->next;
+    while (next != NULL && next->data < data)
+    {
+        current = next;
+        next = current->next;
+    }
+    Node *newNode = createNode(data);
+    if (newNode == NULL) return false;
+    newNode->next = current->next;
+    current->next = newNode;
+}
+```
+### Deletion
+```c
+void deleteFront(LinkedList *list)
+{
+    Node *newHead = list->head->next;
+    if (newHead == NULL) {
+        printf("List is already empty.\n");
+        return;
+    }
+    free(list->head);
+    list->head = newHead;
+}
+void deleteBack(LinkedList *list)
+{
+    if (isEmpty(list)) {
+        printf("List is already empty.\n");
+        return;
+    }
+    Node *next = current->next;
+    if (next == NULL) {
+        deleteFront(list);
+    }
+    while (next->next != NULL)
+    {
+        current = next;
+        next = current->next;
+    }
+    free(next);
+    current->next = NULL;
+}
+int deleteAllNode(LinkedList *list)
+{
+    int numDeleted = 0;
+    while(!isEmpty(list))
+    {
+        deleteFront(list);
+        numDeleted++;
+    }
+    // make sure the list is completely deleted
+    list->head = NULL;
+    return numDeleted;
+}
