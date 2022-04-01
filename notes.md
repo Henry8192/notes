@@ -1310,3 +1310,44 @@ int deleteAllNode(LinkedList *list)
     list->head = NULL;
     return numDeleted;
 }
+```
+## 2022/04/01 Lined List Continued
+### Delete the data for the first match
+```c
+bool deleteFirstMatch(LinkedList *list, int data)
+{
+    if (isEmpty(list))
+    {
+        printf("List is empty.");
+        return false;
+    }
+    Node *current = list->head;
+    if (current->data == data)
+    {
+        deleteFront(list);
+        return true;
+    }
+    while (current->next != NULL && current->next->data != data)
+    {
+        current = current->next;
+    }
+    Node *temp = current->next;
+    if (temp == NULL)
+    {
+        printf("%d Not Found.", data);
+        return false;
+    }
+    current->next = temp->next;
+    free(temp);
+    return true;
+}
+```
+### Delete all matched data
+Not inefficient, ignored by Henry
+[Here is a efficient example](https://www.youtube.com/watch?v=dQw4w9WgXcQ)
+
+
+## Search
+[More about Searches](https://www.programiz.com/dsa/asymptotic-notations)
+### Binary Search
+咕了
