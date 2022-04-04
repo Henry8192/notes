@@ -1351,3 +1351,55 @@ Not inefficient, ignored by Henry
 [More about Searches](https://www.programiz.com/dsa/asymptotic-notations)
 ### Binary Search
 咕了
+
+## 2022/04/04 Binary Search & Other Search Algorithms
+### Binary Search
+```c
+int binarySearchHelper(int list[], int data, int low, int high)
+{
+    if (low > high) return -1;
+    int middle = (low + high) / 2;
+    if (list[middle] == data) return middle;
+    else if (list[middle] < data) { return binarySearchHelper(list, data, low, middle - 1); }
+    else return { binarySearchHelper(list, data, middle + 1, high); }
+}
+int binarySearch(int list[], int length, int data)
+{
+    return binarySearchHelpter(list, data, 0, length - 1);
+}
+```
+### Insertion sort
+```c
+void insertionSort(int list[], int length)
+{
+    for (int top = 1; top < length; top++)
+    {
+        int item = list[top];
+        int emptyIndex = top;
+        // move the data on the left side which is greater than current
+        while (emptyIndex > 0 && list[emptyIndex - 1] > item)
+        {
+            list[emptyIndex] = list[emptyIndex - 1];
+            emptyIndex--;
+        }
+        list[emptyIndex] = item;
+    }
+}
+### Selection Sort
+void selectionSort(int list[], int length)
+{
+    for (int top = length - 1; top > 0; top--)
+    {
+        int indexOfLargest = 0;
+        for (int i = 1; i <= top; i++)
+        {
+            if (list[i] > list[indexOfLargest])
+            {
+                indexOfLargest = i;
+            }
+        }
+        int temp = list[top];
+        list[top] = list[indexOfLargest];
+        list[indexofLargest] = temp;
+    }
+}
