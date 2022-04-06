@@ -1385,7 +1385,9 @@ void insertionSort(int list[], int length)
         list[emptyIndex] = item;
     }
 }
+```
 ### Selection Sort
+```c
 void selectionSort(int list[], int length)
 {
     for (int top = length - 1; top > 0; top--)
@@ -1402,4 +1404,37 @@ void selectionSort(int list[], int length)
         list[top] = list[indexOfLargest];
         list[indexofLargest] = temp;
     }
+}
+```
+## 2022/04/06 Quick Sort - Devide and Conquer
+[Sorting Algorithm Animations](https://visualgo.net/en/sorting)
+### Implementation
+```c
+int partition(int list[], int low, int high)
+{
+    int pivot = low, left = low + 1, right = high;
+    while (left <= right)
+    {
+        while (left <= right && list[left] <= list[pivot]) { left++; }
+        while (left <= right && list[pivot] < list[right]) { right--; }
+        if (left < right) swap(&list[left], &list[right]);
+        else
+        {
+            swap(&list[right], &list[pivot]);
+            return right;
+        }
+    }
+}
+void quickSortHelper(int list[], int low, int high)
+{
+    if (low < high)
+    {
+        int pivot = partition(list, low, high);
+        quickSortHelper(list, low, pivot - 1);
+        quickSortHelper(list, pivot + 1, high);
+    }
+}
+void quickSort(int list[], int length)
+{
+    return quickSortHelper(list, 0, length - 1);
 }
