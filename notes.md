@@ -1406,7 +1406,7 @@ void selectionSort(int list[], int length)
     }
 }
 ```
-## 2022/04/06 Quick Sort - Devide and Conquer
+## 2022/04/06 Quick Sort - Divide and Conquer
 [Sorting Algorithm Animations](https://visualgo.net/en/sorting)
 ### Implementation
 ```c
@@ -1438,3 +1438,49 @@ void quickSort(int list[], int length)
 {
     return quickSortHelper(list, 0, length - 1);
 }
+```
+
+## 2022/04/08
+### Bubble Sort
+Compare adjacent items
+[Bubble Sort](https://www.runoob.com/w3cnote/bubble-sort.html)
+
+### Binary Search Trees (BST)
+```c
+typedef struct node {
+    int data;
+    struct node *left, *right;
+} Node;
+
+Node *createNode(int data) {
+    Node *p = (Node*) malloc(sizeof(Node));
+    if (p != NULL) {
+        p->data = data;
+        p->left = NULL;
+        p->right = NULL;
+    }
+    return p;
+}
+typedef struct bstree {
+    Node *root;
+} BSTree;
+void initBSTree(BSTree *tree)
+{
+    tree->root = NULL;
+}
+bool isEmpty(BSTree *tree)
+{
+    return tree->root == NULL;
+}
+void printHelper(Node *node)
+{
+    if (!node) return;
+    printHelper(node->left);
+    printf("%d ", node->data);
+    printHelper(node->right);
+}
+void print(BSTree *tree)
+{
+    return printHelper(tree->root);
+}
+```
