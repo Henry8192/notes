@@ -1484,3 +1484,74 @@ void print(BSTree *tree)
     return printHelper(tree->root);
 }
 ```
+## 2022/04/11 Binary Search Tree Continued
+### Search
+#### Recursive Version
+```c
+Node *searchHelper(Node *node, int data)
+{
+    if (!node) return NULL;
+    if (node->data == data) return node;
+    if (node->data > data)
+    { return searchHelper(node->left, data); }
+    else
+    { return searchHelper(node->right, data); }
+}
+Node *search(BSTree *tree, int data)
+{
+    return searchHelper(tree->root, data);
+}
+```
+#### Iterative Version
+```c
+Node *search(BSTree *tree, int data)
+{
+    Node *current = tree->root;
+    while (current != NULL && current->data != data)
+    {
+        if (data < current->data) { current = current->left; }
+        else { current = current->right; }
+    }
+    return current;
+}
+```
+### Insertion
+#### Iterative Version
+```c
+Node* insert(BSTree *tree, int data)
+{
+    if (isEmpty(tree)) { tree->root = createNode(data); return tree->root; }
+
+    Node *current = tree->root;
+    Node *parent = NULL;
+    while (current != NULL && parent->data != data)
+    {
+        parent = current;
+        if (data < current->data) { current = current->left; }
+        else { current = current->right; }
+    }
+    if (current) return NULL;
+    if (data < parent->data) { parent->left = createNode(data); return parent->left; }
+    else { parent->right = createNode(data); return parent->right; }
+}
+```
+#### Recursive Version
+```c
+Node *insertHelper(Node *node, int data)
+{
+    if (!node) { return createNode(data); }
+    if (data < node->data)
+    {
+        node->left = insertHelper(node->left, int data);
+    }
+    else
+    {
+        node->right = insertHelper(node->right, int data);
+    }
+    return node;
+}
+bool insert(BSTree *tree, int data)
+{
+
+}
+```
