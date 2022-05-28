@@ -850,11 +850,12 @@ char *strstr(const char *s1, const char *s2)
 {
     char *p = s1;
     int n1 = strlen(s1), n2 = strlen(s2);
-    while (*p != '\0' && strncmp(p, s2, n2) && n-(p-s1) >= n2)
+    while (*p != '\0' && strncmp(p, s2, n2) && n1 -(p-s1) >= n2)
     {
         p++;
     }
     if (*p == '\0') return NULL;
+
     return p;
 }
 ```
